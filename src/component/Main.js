@@ -3,16 +3,25 @@ import { BiWallet } from "react-icons/bi";
 import { CgMenuBoxed } from "react-icons/cg";
 import "./Main.css";
 import MainContent from "./MainContent";
-function Main({ hideVal, onChange }) {
+function Main({ hideVal, lessHideVal, onChange }) {
   return (
     <div className="mainM">
-      <div className="mainHeader">
+      <div
+        style={
+          hideVal === "none" || lessHideVal === "none"
+            ? { margin: "0px 40px" }
+            : null
+        }
+        className="mainHeader"
+      >
         <div className="headerLeft">
           <CgMenuBoxed
             onClick={onChange}
             className="menuButton"
             style={
-              hideVal === "none" ? { display: "flex" } : { display: "none" }
+              hideVal === "none" || lessHideVal === "none"
+                ? { display: "flex" }
+                : { display: "none" }
             }
           />
           <p>Section</p>

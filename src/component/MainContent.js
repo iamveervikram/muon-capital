@@ -17,7 +17,7 @@ function MainContent() {
       <div
         className="mainConLeft"
         style={
-          hideValue === "none" ? { maxWidth: "100%" } : { maxWidth: "80%" }
+          hideValue === "none" ? { maxWidth: "100%" } : null
         }
       >
         <MainContentLeft

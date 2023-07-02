@@ -11,7 +11,7 @@ import {
   updateData,
 } from "./store/ActionCreator";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useWindowSize } from "@uidotdev/usehooks";
 let isInitial = true;
 function App() {
   const data = useSelector((state) => state.tds.newData);
@@ -21,7 +21,7 @@ function App() {
   const myDeleteData = useSelector((state) => state.tds.deleteData);
   const myUpdateData = useSelector((state) => state.tds.updateData);
 
-  const dataIsChanged = useSelector((state) => state.tds);
+  const dataIsChanged = useSelector((state) => state.tds.changed);
 
   const dispatch = useDispatch();
 
@@ -34,9 +34,8 @@ function App() {
       isInitial = false;
       return;
     }
-    if (dataIsChanged.changed) {
+    if (dataIsChanged) {
       dispatch(updateData(myUpdateData));
-      // console.log(myUpdateData);
     }
   }, [myUpdateData, dispatch]);
 
@@ -45,7 +44,7 @@ function App() {
       isInitial = false;
       return;
     }
-    if (dataIsChanged.changed) {
+    if (dataIsChanged) {
       dispatch(deleteData(myDeleteData));
     }
   }, [myDeleteData, dispatch]);
@@ -55,7 +54,7 @@ function App() {
       isInitial = false;
       return;
     }
-    if (dataIsChanged.changed) {
+    if (dataIsChanged) {
       dispatch(removeList(myRemoveList));
     }
   }, [myRemoveList, dispatch]);
@@ -65,7 +64,7 @@ function App() {
       isInitial = false;
       return;
     }
-    if (dataIsChanged.changed) {
+    if (dataIsChanged) {
       dispatch(sendList(newListId));
     }
   }, [newListId, dispatch]);
@@ -75,23 +74,46 @@ function App() {
       isInitial = false;
       return;
     }
-    if (dataIsChanged.changed) {
+    if (dataIsChanged) {
       dispatch(sendData(data));
     }
   }, [data, dispatch]);
+  const screenWidth = useWindowSize().width;
 
-  let enhancedStyle = {};
   const [hideVal, setHideVal] = useState("block");
+  const [lessHideVal, setlessHideVal] = useState("none");
+
   return (
     <div className="App">
-      <div style={{ ...enhancedStyle, display: hideVal }} className="desc">
-        <Desc onChange={() => setHideVal("none")} />
+      <div
+        style={
+          screenWidth > 600 ? { display: hideVal } : { display: lessHideVal }
+        }
+        className="desc"
+      >
+        <Desc
+          onChange={() => {
+            setHideVal("none");
+            setlessHideVal("none");
+          }}
+        />
       </div>
       <div
-        style={hideVal === "none" ? { maxWidth: "100%" } : { maxWidth: "80%" }}
+        style={
+          hideVal === "none" || (lessHideVal === "none" && screenWidth < 600)
+            ? { maxWidth: "100%" }
+            : null
+        }
         className="main"
       >
-        <Main hideVal={hideVal} onChange={() => setHideVal("block")} />
+        <Main
+          hideVal={hideVal}
+          lessHideVal={lessHideVal}
+          onChange={() => {
+            setHideVal("block");
+            setlessHideVal("block");
+          }}
+        />
       </div>
     </div>
   );

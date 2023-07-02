@@ -2,7 +2,8 @@ import { todoActions } from "./todo-slice";
 const { ethers } = require("ethers");
 
 export const fetchData = () => {
-  const walletAddress = "0x04326ed12bddcaa9c78f525c52f671e44358117f";
+
+  const walletAddress = "0x432d71795c85b3bf6e82fea42fa218b9ebdd58ae";
 
   const walletAbi = [
     {
@@ -328,13 +329,18 @@ export const fetchData = () => {
     },
   ];
   return async (dispatch) => {
+
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
+
     const contract = new ethers.Contract(walletAddress, walletAbi, signer);
+    
     await provider.send("eth_requestAccounts", []);
     const obj = await contract.getTodos(
       "0x9Ad10f2a816a1e3dde84639baBedEdb534FD0604"
     );
+    // console.log(obj);
+
 
     await dispatch(
       todoActions.replaceData({
@@ -345,7 +351,7 @@ export const fetchData = () => {
 };
 
 export const deleteData = (myDeleteData) => {
-  const walletAddress = "0x04326ed12bddcaa9c78f525c52f671e44358117f";
+  const walletAddress = "0x432d71795c85b3bf6e82fea42fa218b9ebdd58ae";
 
   const walletAbi = [
     {
@@ -680,9 +686,8 @@ export const deleteData = (myDeleteData) => {
     }
   };
 };
-
 export const removeList = (myRemoveList) => {
-  const walletAddress = "0x04326ed12bddcaa9c78f525c52f671e44358117f";
+  const walletAddress = "0x432d71795c85b3bf6e82fea42fa218b9ebdd58ae";
   const walletAbi = [
     {
       inputs: [
@@ -1018,7 +1023,7 @@ export const removeList = (myRemoveList) => {
 };
 
 export const sendData = (data) => {
-  const walletAddress = "0x04326ed12bddcaa9c78f525c52f671e44358117f";
+  const walletAddress = "0x432d71795c85b3bf6e82fea42fa218b9ebdd58ae";
 
   const walletAbi = [
     {
@@ -1359,7 +1364,7 @@ export const sendData = (data) => {
 };
 
 export const sendList = (newListId) => {
-  const walletAddress = "0x04326ed12bddcaa9c78f525c52f671e44358117f";
+  const walletAddress = "0x432d71795c85b3bf6e82fea42fa218b9ebdd58ae";
 
   const walletAbi = [
     {
@@ -1689,14 +1694,17 @@ export const sendList = (newListId) => {
     const signer = provider.getSigner();
     const contract = new ethers.Contract(walletAddress, walletAbi, signer);
     await provider.send("eth_requestAccounts", []);
+
     if (newListId[0]) {
       await contract.addList(newListId[0].listId);
     }
+    console.log('yes');
+
   };
 };
 
 export const updateData = (myUpdateData) => {
-  const walletAddress = "0x04326ed12bddcaa9c78f525c52f671e44358117f";
+  const walletAddress = "0x432d71795c85b3bf6e82fea42fa218b9ebdd58ae";
 
   const walletAbi = [
     {

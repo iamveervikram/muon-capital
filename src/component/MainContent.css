@@ -5,6 +5,8 @@
 }
 .mainConLeft {
   flex: 80%;
+  max-width: 80%;
+
   transition: 0.1s ease-in;
 }
 .mainConRight {
@@ -14,13 +16,14 @@
   display: flex;
   flex-direction: column;
 }
-/* @media only screen and (max-width: 800px) {
+@media only screen and (max-width: 768px) {
   .mainConRight {
-    flex: 30% !important;
-    max-width: 30% !important;
+    flex: 40%;
+    max-width: 40%;
   }
   .mainConLeft {
-    flex: 70% !important;
-    max-width: 70% !important;
+    flex: 60%;
+    max-width: 60%;
+
   }
-} */
+}

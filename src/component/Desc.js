@@ -10,7 +10,7 @@ function Desc({ onChange }) {
       <div className="info">
         <div className="name">
           <p className="nIcon">V</p>
-          <p className="userName">&nbsp;VeerisON</p>
+          <p className="userName">&nbsp;Veer</p>
         </div>
         <button onClick={onChange} className="sym">
           <AiOutlineMenuFold className="symBtn" />
